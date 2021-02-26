@@ -1,0 +1,18 @@
+.search-bar {
+  height: 40px;
+  width: 400px;
+  border-radius: 25px;
+  padding: 0 20px;
+  border: none;
+  color: $color-primary;
+  font-size: 18px;
+  transition: all 0.3s;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
