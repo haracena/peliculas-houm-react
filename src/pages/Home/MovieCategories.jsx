@@ -1,54 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeCategory } from '../../redux/moviesSlice';
 
 const MovieCategories = () => {
-  const [filters, setFilters] = useState([
-    {
-      displayName: 'más recientes',
-      apiFilter: 'latest',
-      active: true,
-    },
-    {
-      displayName: 'en cartelera',
-      apiFilter: 'now_playing',
-      active: false,
-    },
-    {
-      displayName: 'populares',
-      apiFilter: 'popular',
-      active: false,
-    },
-    {
-      displayName: 'más votadas',
-      apiFilter: 'top_rated',
-      active: false,
-    },
-    {
-      displayName: 'que se aproximan',
-      apiFilter: 'upcoming',
-      active: false,
-    },
-  ]);
+  const { categories, activeCategory } = useSelector((state) => state.movies);
+  const [currentCategory, setCurrentCategory] = useState(activeCategory);
+  const dispatch = useDispatch();
 
-  const getActiveFilter = () => {
-    let activeFilter = '';
-    filters.map((filter) =>
-      filter.active ? (activeFilter = filter.displayName) : null
-    );
+  useEffect(() => {
+    setCurrentCategory(activeCategory);
+  }, [activeCategory]);
 
-    return activeFilter;
+  const changeActiveCategory = (categoryFilter) => {
+    console.log(categoryFilter);
+    dispatch(changeCategory(categoryFilter));
   };
 
   return (
     <div className='movie-categories'>
-      <h2 className='movie-categories__title'>Películas {getActiveFilter()}</h2>
-      {filters.map((filter) => (
+      <h2 className='movie-categories__title'>
+        Películas {currentCategory.name}
+      </h2>
+      {categories.map((category) => (
         <button
-          className={`filter-button ${
-            filter.active && 'filter-button__active'
+          className={`category-button ${
+            category.id === currentCategory.id && 'category-button__active'
           }`}
-          key={filter.apiFilter}
+          key={category.id}
+          onClick={() => {
+            changeActiveCategory(category.id);
+          }}
         >
-          {filter.displayName}
+          {category.name}
         </button>
       ))}
     </div>
