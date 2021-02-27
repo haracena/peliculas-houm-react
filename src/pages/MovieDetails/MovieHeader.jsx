@@ -1,12 +1,17 @@
 import React from 'react';
 import { originalBackdropImageUrl } from '../../api/movieApi';
+import ImageNotFound from '../../assets/images/image-not-found.jpg';
 
 const MovieHeader = ({ movie }) => {
   return (
     <header
       className='movie-header'
       style={{
-        backgroundImage: `url('${originalBackdropImageUrl}${movie.backdrop_path}')`,
+        backgroundImage: `${
+          movie.backdrop_path
+            ? `url('${originalBackdropImageUrl}${movie.backdrop_path}')`
+            : `url(${ImageNotFound})`
+        }`,
       }}
     >
       <div className='movie-info'>
