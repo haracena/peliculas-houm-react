@@ -7,3 +7,11 @@ $color-grey: #f4f4f4;
 $color-grey-dark: #333333;
 $color-font-grey-light: #6d6d6d;
 $color-font-grey-dark: #424242;
+
+// Shadows
+$shadow: 0px 10px 20px darken($color-grey, 20%);
+
+// Breakpoints
+$bp-large: 62.5em; // 1000px
+$bp-medium: 50em; // 800px
+$bp-small: 33.125em; // 530px

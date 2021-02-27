@@ -18,22 +18,22 @@ const MovieCategories = () => {
 
   return (
     <div className='movie-categories'>
-      <h2 className='movie-categories__title'>
-        Películas {currentCategory.name}
-      </h2>
-      {categories.map((category) => (
-        <button
-          className={`category-button ${
-            category.id === currentCategory.id && 'category-button__active'
-          }`}
-          key={category.id}
-          onClick={() => {
-            changeActiveCategory(category.id);
-          }}
-        >
-          {category.name}
-        </button>
-      ))}
+      <h2 className='movie-categories__title'>Lista de Películas</h2>
+      <div className='movie-categories__button-list'>
+        {categories.map((category) => (
+          <button
+            className={`category-button ${
+              category.id === currentCategory.id && 'category-button__active'
+            }`}
+            key={category.id}
+            onClick={() => {
+              changeActiveCategory(category.id);
+            }}
+          >
+            {category.name}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

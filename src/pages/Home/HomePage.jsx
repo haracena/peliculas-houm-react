@@ -1,30 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import MoviesList from '../../components/MoviesList';
 import Header from './Header';
 import MovieCategories from './MovieCategories';
 import { useSelector, useDispatch } from 'react-redux';
-import { getMoviesByCategory } from '../../redux/moviesSlice';
+import { getMoviesByCategory, resetMoviesList } from '../../redux/moviesSlice';
+import Loading from '../../components/Loading';
 
 const HomePage = () => {
-  const { moviesList: movies, activeCategory } = useSelector(
+  const { moviesList: movies, activeCategory, status } = useSelector(
     (state) => state.movies
   );
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getMoviesByCategory(activeCategory.id));
-  }, [dispatch, activeCategory]);
+    dispatch(resetMoviesList());
+  }, [dispatch]);
 
   useEffect(() => {
-    console.log(movies);
-  }, [movies]);
+    if (activeCategory.id) {
+      dispatch(getMoviesByCategory());
+    }
+  }, [dispatch, activeCategory]);
 
   return (
     <>
       <Header />
-      <section className='home-content'>
+      <section className='fit-content'>
         <MovieCategories />
-        {movies && <MoviesList movies={movies} />}
+        {status === 'pending' && !movies ? (
+          <Loading />
+        ) : (
+          movies && <MoviesList movies={movies} />
+        )}
       </section>
     </>
   );

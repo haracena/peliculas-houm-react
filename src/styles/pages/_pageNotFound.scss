@@ -1,0 +1,14 @@
+.page-notfound {
+  width: 100vw;
+  height: 100vh;
+  font-size: 25px;
+  background-color: $color-grey;
+  color: $color-font-grey-dark;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__link {
+    color: $color-primary;
+  }
+}

@@ -1,10 +1,32 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getMoviesByGenre } from '../api/movieApi';
+import {
+  getMoviesByGenre,
+  getSimilarMovies,
+  searchMovie,
+} from '../api/movieApi';
 
 export const getMoviesByCategory = createAsyncThunk(
   'movies/getMoviesByCategory',
-  async (categoryFilter) => {
-    return await getMoviesByGenre(categoryFilter);
+  async (_, { getState }) => {
+    // obtiene la paginación actual de la lista de películas
+    const currentListPage = getState().movies.currentPageList;
+    const { id: currentCategory } = getState().movies.activeCategory;
+
+    return await getMoviesByGenre(currentCategory, currentListPage);
+  }
+);
+
+export const getRelatedMovies = createAsyncThunk(
+  'movies/getRelatedMovies',
+  async (movieId) => {
+    return await getSimilarMovies(movieId);
+  }
+);
+
+export const getSearchedMovie = createAsyncThunk(
+  'movies/getSearchedMovieResults',
+  async (movieName) => {
+    return await searchMovie(movieName);
   }
 );
 
@@ -12,6 +34,8 @@ export const moviesSlice = createSlice({
   name: 'movies',
   initialState: {
     moviesList: [],
+    currentPageList: 1,
+    relatedMovies: [],
     status: null,
     activeCategory: {
       id: 28,
@@ -53,21 +77,61 @@ export const moviesSlice = createSlice({
       state.activeCategory = state.categories.find(
         (category) => category.id === action.payload
       );
+      state.currentPageList = 1;
+      state.moviesList = [];
+    },
+    removeActiveCategory: (state, action) => {
+      state.activeCategory = { id: null };
+      state.currentPageList = 1;
+      state.moviesList = [];
+    },
+    removeRelatedMovies: (state, action) => {
+      state.relatedMovies = [];
+    },
+    resetMoviesList: (state, action) => {
+      state.currentPageList = 1;
+      state.moviesList = [];
     },
   },
   extraReducers: {
     [getMoviesByCategory.pending]: (state, action) => {
-      state.status = 'loading';
+      state.status = 'pending';
     },
     [getMoviesByCategory.fulfilled]: (state, action) => {
-      state.moviesList = action.payload;
+      state.moviesList = [...state.moviesList, ...action.payload];
+      state.currentPageList += 1;
       state.status = 'finished';
     },
     [getMoviesByCategory.rejected]: (state, action) => {
       state.status = 'rejected';
     },
+    [getRelatedMovies.pending]: (state, action) => {
+      state.status = 'pending';
+    },
+    [getRelatedMovies.fulfilled]: (state, action) => {
+      state.relatedMovies = action.payload;
+      state.status = 'fulfilled';
+    },
+    [getRelatedMovies.rejected]: (state, action) => {
+      state.status = 'rejected';
+    },
+    [getSearchedMovie.pending]: (state, action) => {
+      state.status = 'pending';
+    },
+    [getSearchedMovie.fulfilled]: (state, action) => {
+      state.moviesList = action.payload;
+      state.status = 'fulfilled';
+    },
+    [getSearchedMovie.rejected]: (state, action) => {
+      state.status = 'rejected';
+    },
   },
 });
 
-export const { changeCategory } = moviesSlice.actions;
+export const {
+  changeCategory,
+  removeActiveCategory,
+  removeRelatedMovies,
+  resetMoviesList,
+} = moviesSlice.actions;
 export default moviesSlice.reducer;

@@ -1,6 +1,15 @@
+// Global styles
 @import './abstracts/variables';
 @import './base/base';
+@import './base/global';
+
+// Pages
 @import './pages/homePage';
+@import './pages/movieDetails';
+@import './pages/pageNotFound';
+
+// Components
 @import './components/moviesList';
 @import './components/movieCard';
 @import './components/searchBar';
+@import './components/loading';

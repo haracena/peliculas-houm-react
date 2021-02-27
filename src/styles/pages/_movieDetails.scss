@@ -1,0 +1,107 @@
+.movie-header {
+  width: 100%;
+  height: 50vh;
+  background-position: center top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+  box-shadow: $shadow;
+  border-radius: 3px;
+}
+
+.movie-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 20px;
+  background-color: rgba($color-primary, 0.85);
+  border-radius: 3px;
+
+  @media only screen and (max-width: $bp-small) {
+    padding: 10px;
+  }
+
+  &__title {
+    font-size: 35px;
+    color: $color-white;
+
+    @media only screen and (max-width: $bp-small) {
+      font-size: 24px;
+    }
+  }
+
+  &__subtitle {
+    font-size: 18px;
+    color: $color-grey;
+
+    @media only screen and (max-width: $bp-small) {
+      font-size: 16px;
+    }
+  }
+}
+
+.movie-content {
+  background-color: $color-grey-light;
+  padding: 40px 20px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  justify-items: center;
+  align-items: center;
+
+  @media only screen and (max-width: $bp-medium) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.movie-poster {
+  height: 300px;
+  width: 200px;
+  border-radius: 3px;
+  box-shadow: $shadow;
+
+  @media only screen and (max-width: $bp-medium) {
+    display: none;
+  }
+}
+
+.movie-overview {
+  margin-bottom: 20px;
+}
+
+.movie-rank {
+  margin-left: 5px;
+  color: $color-primary;
+}
+
+.movie-badge {
+  display: inline-block;
+  padding: 10px;
+  margin: 20px 15px 20px 0px;
+  background-color: $color-primary-light;
+}
+
+.company-logo {
+  width: 75px;
+  height: 75px;
+  padding: 10px;
+  border-radius: 50%;
+  box-shadow: $shadow;
+  object-fit: contain;
+  margin-right: 15px;
+  margin-top: 15px;
+}
+
+.movie-notfound {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  color: $color-primary;
+}
+
+.movie-related-title {
+  font-size: 24px;
+  margin: 20px;
+}
