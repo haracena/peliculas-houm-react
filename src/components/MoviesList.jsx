@@ -1,10 +1,11 @@
 import React from 'react';
 import MovieCard from './MovieCard';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getMoviesByCategory } from '../redux/moviesSlice';
 
 const MoviesList = ({ movies, hasButton = true }) => {
   const dispatch = useDispatch();
+  const { status } = useSelector((state) => state.movies);
 
   return (
     <>
@@ -23,7 +24,7 @@ const MoviesList = ({ movies, hasButton = true }) => {
               dispatch(getMoviesByCategory());
             }}
           >
-            Buscar más películas
+            {status === 'pending' ? 'Cargando' : 'Buscar más películas'}
           </button>
         </div>
       )}
