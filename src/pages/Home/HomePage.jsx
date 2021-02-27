@@ -27,11 +27,8 @@ const HomePage = () => {
       <Header />
       <section className='fit-content'>
         <MovieCategories />
-        {status === 'pending' && !movies ? (
-          <Loading />
-        ) : (
-          movies && <MoviesList movies={movies} />
-        )}
+        {status === 'pending' && <Loading />}
+        {movies.length > 0 && <MoviesList movies={movies} />}
       </section>
     </>
   );

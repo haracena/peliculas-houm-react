@@ -38,6 +38,7 @@ const MovieInfo = ({ movie }) => {
                   <CompanyLogo
                     logoUrl={company.logo_path}
                     companyName={company.name}
+                    key={company.id}
                   />
                 ) : null
               )}

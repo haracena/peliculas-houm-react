@@ -8,13 +8,14 @@ import MovieInfo from './MovieInfo';
 import RelatedMovies from './RelatedMovies';
 import MovieNotFound from './MovieNotFound';
 import { removeRelatedMovies } from '../../redux/moviesSlice';
+import FloatingActionButton from '../../components/FloatingActionButton';
+
 const MovieDetailsPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { movieDetails, status } = useSelector((state) => state.movie);
 
   useEffect(() => {
-    console.log(id);
     dispatch(getMovie(id));
   }, [dispatch, id]);
 
@@ -22,13 +23,13 @@ const MovieDetailsPage = () => {
     return () => {
       dispatch(removeRelatedMovies());
     };
-  }, []);
+  }, [dispatch]);
 
   if (status === 'pending') {
     return <Loading />;
   }
 
-  if (movieDetails.success == false) {
+  if (movieDetails.success === false) {
     return <MovieNotFound />;
   } else {
     return (
@@ -36,6 +37,7 @@ const MovieDetailsPage = () => {
         <MovieHeader movie={movieDetails} />
         <MovieInfo movie={movieDetails} />
         <RelatedMovies movieId={id} />
+        <FloatingActionButton />
       </div>
     );
   }

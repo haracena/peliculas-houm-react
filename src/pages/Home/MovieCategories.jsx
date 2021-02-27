@@ -12,7 +12,6 @@ const MovieCategories = () => {
   }, [activeCategory]);
 
   const changeActiveCategory = (categoryFilter) => {
-    console.log(categoryFilter);
     dispatch(changeCategory(categoryFilter));
   };
 

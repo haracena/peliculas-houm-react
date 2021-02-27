@@ -9,7 +9,7 @@ const RelatedMovies = ({ movieId }) => {
 
   useEffect(() => {
     dispatch(getRelatedMovies(movieId));
-  }, [dispatch]);
+  }, [dispatch, movieId]);
 
   return (
     <div>
