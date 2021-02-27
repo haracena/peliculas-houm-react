@@ -2,7 +2,7 @@ const apiKey = '6dfb65ad9d90a58aadcd8ccd0824ef82';
 const languageConfig = 'es-ES';
 const configQueryParams = `&api_key=${apiKey}&language=${languageConfig}`;
 const baseUrl = 'https://api.themoviedb.org/3/';
-const discoverBaseUrl = `${baseUrl}discover/movie/?${configQueryParams}`;
+const discoverBaseUrl = `${baseUrl}discover/movie?${configQueryParams}`;
 const movieBaseUrl = `${baseUrl}movie/`;
 const searchUrl = `${baseUrl}search/movie`;
 
